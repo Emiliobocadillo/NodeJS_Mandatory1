@@ -1,0 +1,22 @@
+{
+  "name": "nodejs_mandatory1",
+  "version": "0.0.1",
+  "description": "A website showing how to set up a fullstack app with node.js and express",
+  "type": "module",
+  "main": "app.js",
+  "keywords": [
+    "node",
+    "javascript",
+    "express",
+    "nodemon"
+  ],
+  "author": "Emil Høeg",
+  "license": "MIT",
+  "homepage": "https://github.com/anderslatif/Kea_DAT_Node.js_2023_Spring#readme",
+  "dependencies": {
+    "escape-html": "^1.0.3",
+    "express": "^4.18.2",
+    "sentiment": "^5.0.2",
+    "serve-favicon": "^2.5.0"
+  }
+}

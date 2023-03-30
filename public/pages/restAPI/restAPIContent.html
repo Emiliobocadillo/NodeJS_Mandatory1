@@ -1,0 +1,214 @@
+<main>
+  <h1>REST API</h1>
+  <section class="section-center">
+    <h2>What is a REST API?</h2>
+    <p>
+      REST (Representational State Transfer) is a web service architectural
+      style that defines a set of constraints for creating and accessing web
+      services. RESTful APIs (Application Programming Interfaces) are based on
+      the REST architecture, and provide a way for two different computer
+      systems to communicate with each other over the internet. REST APIs are
+      designed to be simple, lightweight, and scalable, and typically use HTTP
+      (Hypertext Transfer Protocol) as their underlying communication protocol.
+      They allow developers to access and manipulate resources on a remote
+      system using a set of standardized HTTP methods, such as GET, POST, PUT,
+      PATCH and DELETE.
+    </p>
+    <br />
+    <p>
+      REST APIs typically use a stateless client-server model, where the client
+      makes requests to the server to perform operations on resources, such as
+      retrieving data, creating new resources, updating existing resources, or
+      deleting resources. Each request sent to the server contains all the
+      necessary information for the server to fulfill the request, and the
+      server responds with a status code and data in a format that the client
+      understands - typically JSON. REST APIs are widely used in modern web
+      development, and are a popular choice for building scalable, reliable, and
+      interoperable web services. They are often used to build web applications,
+      mobile apps, and other software that needs to interact with remote systems
+      over the internet.
+    </p>
+    <p>
+      <br />
+      Below is an example of the design of a REST API in a table format, with an
+      additional column for description, which is not necessary once you
+      understand the convention:
+    </p>
+    <br />
+
+    <table>
+      <tr>
+        <th>HTTP Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/cars</td>
+        <td>Fetches all cars</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/cars/<code>&ltid&gt</code></td>
+        <td>Fetches a specific car by id</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/cars</td>
+        <td>Creates a new car</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td>/cars/<code>&ltid&gt</code></td>
+        <td>
+          Updates a specific car by id(intended to replace an entire ressource)
+        </td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/cars/<code>&ltid&gt</code></td>
+        <td>
+          Updates a specific car by id(intended to replace parts of a ressource)
+        </td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/cars/<code>&ltid&gt</code></td>
+        <td>Deletes a specific car by id</td>
+      </tr>
+    </table>
+
+    <h3>Get started</h3>
+
+    <p>
+      Let's create the actual implementation of the endpoints and make a CRUD
+      API - for the time being we will just store the ressources (the cars) as
+      objects in an array. We will code the endpoints in the `app.js` file which
+      we made in the
+      <a href="/express">Express tutorial</a> - so make sure that's working
+      before you continue below.
+    </p>
+
+    <br />
+
+    <p>
+      Copy and paste the lines below into your `app.js` file - just below the
+      instantiation of Express. The `app.use(express.json())` parses the JSON
+      payload of incoming requests and converts it into a JavaScript object,
+      which can then be used in our application. The rest of the code is our
+      array of cars which we will use as database in the coming examples.
+    </p>
+
+    <div class="code-container">
+      <div class="code-block-header">app.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-1">
+app.use(express.static("public"));
+
+const cars = [
+  { id: 1, name: "Ford" },
+  { id: 2, name: "Tesla" },
+  { id: 3, name: "Ferrari" },
+];      
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-1">copy</button>
+      </div>
+    </div>
+    <h3>GET /cars</h3>
+    <p>
+      Now we are ready to make a route to handle GET requests to the `/cars`
+      endpoint. The `data` property in the JSON object holds an array of car
+      objects.
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">app.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-2">
+app.get("/cars", (req, res) => {
+  res.send({data: cars});
+});
+     
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-2">copy</button>
+      </div>
+    </div>
+    <p>
+      If you now run your app, go to your browser and navigate to
+      <a href="http://localhost:8080/cars" target="_blank"
+        >localhost:8080/cars</a
+      >
+      you should see the following:
+    </p>
+    <img src="../../assets/images/screenshots/GetCars.png" alt="json object" />
+
+    <h3>GET /cars/<code>&ltid&gt</code></h3>
+    <p>
+      Time to make a route to handle GET requests to a specific car based on id:
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">app.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-3">
+app.get("/cars/:id", (req, res) => {
+  const foundCar = cars.find((car) => car.id === Number(req.params.id));
+  res.send({ data: foundCar });
+});
+     
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-3">copy</button>
+      </div>
+    </div>
+    <p>
+      In the code above we use the find() method. This method returns the first
+      occurrence in our array that matches the search criteria, which in our
+      case is that the id of the car has to be identical to the id coming from
+      the `req.params.id`. Note that we have to parse the id coming from the
+      `req.params.id`, since it is a string. If a car is found with the
+      requested id, it is stored in the variable `foundCar` and send back as a
+      response.
+    </p>
+
+    <br />
+
+    <p>
+      If you go to your browser and navigate to
+      <a href="http://localhost:8080/cars/1" target="_blank"
+        >localhost:8080/cars/1</a
+      >
+      you should see the following:
+    </p>
+    <img
+      src="../../assets/images/screenshots/GetSingleCar.png"
+      alt="Json object"
+    />
+    <h3>POST /cars</h3>
+    <p>
+      Now let's make a route to handle a POST request. For this, we will have to
+      use a tool called `Postman`, since browser can only make GET Requests.
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">app.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-4">
+let currentId = 3;
+app.post("/cars", (req, res) => {
+  const carToCreate = req.body;
+  carToCreate.id = ++currentId;
+  cars.push(carToCreate);
+  res.send({ data: carToCreate });
+});
+     
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-4">copy</button>
+      </div>
+    </div>
+  </section>
+</main>

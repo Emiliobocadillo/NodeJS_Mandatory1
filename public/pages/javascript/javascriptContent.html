@@ -1,0 +1,196 @@
+<main>
+  <h1>Javascript</h1>
+  <section class="section-center">
+    <h2>What is Javascript?</h2>
+    <p>
+      Javascript is a turing complete programming language which is primarily
+      used in web developement to create dynammic and interactive webpages. It
+      is a scripting language, which unlike compiled programming languages such
+      as C++ or Java doesn't require the code to be compiled before it can be
+      executed. JavaScript code is interpreted by the browser as it is loaded by
+      the user. However, javascript can also be used as a server-side language,
+      with the help of platforms such as <a href="nodejs"> Node.js</a>, to
+      create web applications and server-side APIs. In this context, JavaScript
+      is not necessarily a scripting language but a full-fledged programming
+      language used for back-end development.
+    </p>
+    <h2>Loop methods</h2>
+    In JavaScript, there are several inbuilt loop methods that can be used to
+    iterate over arrays and other iterable objects. These methods provide a
+    simpler and more concise way to write loops and are often preferred over
+    traditional for and while loops. Below we will go through some examples:
+    <h4>forEach()</h4>
+    <p>
+      This method takes a callback function as an argument and executes that
+      function on each element in the array. It does not mutate the original
+      array, neihter does it create a new one - however the callback function
+      <i>can</i> do this. In the following example we will dynamically create a
+      colored square for each of the colors in `colors` array defined in
+      `forEachExample.js`. The plain HTML document for this page has an empty
+      div with the id `coloredSquaresContainer` below this paragraph.
+    </p>
+    <div id="coloredSquaresContainer"></div>
+    <div class="code-container">
+      <div class="code-block-header">forEachExample.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-1">
+const colors = ['red', 'blue', 'green'];
+
+colors.forEach(color => {
+  const div = document.createElement('div');
+  div.style.backgroundColor = color;
+  div.style.width = '100px';
+  div.style.height = '100px';
+  const coloredCubesContainer = document.getElementById("coloredCubesContainer").appendChild(div)
+});          
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-1">copy</button>
+      </div>
+    </div>
+    <p>
+      The code above calls the forEach() method to iterate over the `colors`
+      array and passes an anonymos callback function as an argument to the
+      forEach(). This callback funtion then creates a div element for each
+      element in the `colors` array, styles it with the corresponding color as
+      background, an finally appends it to the before mentioned div with id
+      `coloredSquaresContainer` which has been styled to ensure horisontal
+      alignment.
+    </p>
+    <h4>map()</h4>
+    <p>
+      Just as the forEach(), this method takes a callback function and iterates
+      over the entire array that it is called upon - but a key difference is
+      that map() stores the returned values in a new array. Let's look at an
+      example:
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">mapExample1.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-2">
+const shoppingCartUSD = [
+  { productName: "T-shirt", price: 15 },
+  { productName: "Pants", price: 35 },
+  { productName: "Shoes", price: 100 },
+];
+
+const shoppingCartDKK = shoppingCartUSD.map(item => ({...item, price: item.price*6.86}));       
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-2">copy</button>
+      </div>
+    </div>
+    <p>
+      In the code above we have an array called `shoppingCartUSD` consisting of
+      3 objects, each with 2 properties: `productName` and `price`. The price is
+      in USD and we want an identical array but with prices in DKK. To do this
+      we create a new array called `shoppingcartDKK` and set it equal
+      `shoppingCartUSD.map()`. Inside the map() method we call an arrow function
+      for each item in `shoppingCartUSD` and copy that item's properties using
+      the spread operator `...item`, then the price property is updated by
+      multiplying the USD price by the exchange rate between USD AND DKK. The
+      newly created object is then added to the `shoppingCartDKK`.
+    </p>
+    <br />
+    <p>
+      It is important to make the callback function create a new object for
+      every object in the original array, and then update that object -
+      otherwise we will mutate the original array and just copy pointers to it.
+      The code below from `mapExample2` has the side effect of also mutating the
+      original array.
+    </p>
+    <br />
+
+    <p>
+      If still in doubt, try to log `shoppingCartDKK` and `shoppingCartUSD` from
+      each example and you will see that only the code `mapExample2.js` mutates
+      the original array.
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">mapExample2.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-3">
+const shoppingCartUSD = [
+  { productName: "T-shirt", price: 15 },
+  { productName: "Pants", price: 35 },
+  { productName: "Shoes", price: 100 },
+];
+
+const shoppingCartDKK = shoppingCartUSD.map(item =>{
+  item.price *= 6.86;
+  return item;
+});       
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-3">copy</button>
+      </div>
+    </div>
+    <h2>fetch()</h2>
+    <p>
+      This function is used to make network requests to a server and retrieve
+      data from it. The fetch() function returns a promise that resolves to the
+      response object representing the server's response to the request. The
+      response object contains information about the response status, headers,
+      and body. In the following example we will fetch quotes from
+      <a href="http://quotable.io/random" target="_blank"> http://quotable.io/random</a> and
+      show them in the quote generator below:
+    </p>
+
+    <div class="quote-block-header">Quote Generator</div>
+    <div class="quote-container">
+      <p id="quote">"Quote goes here..."</p>
+      <small id="author">Author</small>
+      <button id="quote-btn">New Quote</button>
+    </div>
+
+    <p>
+      Below we see the javascript code associated with the `Quote Generator`.
+      Each of the first three lines uses the `querySelector()` method to select
+      an HTML element with a specific ID from this page. The fourth line
+      attaches an eventListener that listens for a click event on the `quotebtn`
+      which will execute the getQuote() method defined on the fifth line.
+    </p>
+    <br />
+    <p>
+      The `getQuote()` method calls the `fetch()` function with a URL pointing
+      to the quotesAPI endpoint. Once the response is received, the function
+      uses the `json()` method to extract the JSON data from the response, and
+      then uses the extracted data to update the text content of two HTML
+      elements on the page: one for the quote content, and another for the
+      author of the quote.
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">fetchExample.js</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-4">
+const quote = document.querySelector("#quote");
+const author = document.querySelector("#author");
+const quotebtn = document.querySelector("#quote-btn");
+quotebtn.addEventListener("click", getQuote);
+function getQuote() {
+  fetch("http://quotable.io/random")
+    .then((response) => response.json())
+    .then((data) => {
+      quote.innerText = `"${data.content}"`;
+      author.innerText = data.author;
+    });
+}      
+</code>
+        </pre>
+        <button class="copy-button" id="copy-button-4">copy</button>
+      </div>
+    </div>
+
+    <p>
+      It is worth to mention that we use the `innerText` instead of `innerHTML`
+      to set the content of the quote and author container to avoid Cross Site
+      Scripting (XXS). If you for some reason have to use innerHTML, then you
+      can use the tool <a href="https://www.npmjs.com/package/escape-html?activeTab=readme" target="_blank">escape-html</a>.
+    </p>
+
+  </section>
+</main>

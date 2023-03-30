@@ -1,0 +1,50 @@
+<main>
+  <h1>Nodemon</h1>
+  <section class="section-center">
+    <h2>What is Nodemon?</h2>
+    <p>
+      Nodemon is a tool that helps develop Node.js based applications by
+      automatically restarting the node application when file changes in the
+      directory are detected. This is very convenient because you don't have to
+      go to the terminal and write `node app.js` everytime you want to see your
+      changes in the browser.
+    </p>
+    <h3>Get started</h3>
+    <p>
+      1. To install nodemon globally run the following command in your terminal:
+    </p>
+    <div class="code-container">
+      <div class="code-block-header">Terminal</div>
+      <div class="code-wrapper">
+        <pre>
+          <code id="code-1">
+npm install -g nodemon
+          </code>
+        </pre>
+        <button class="copy-button" id="copy-button-1">copy</button>
+      </div>
+    </div>
+    <p>
+      2. You are nowsd able to run your node/express app with the command
+      `nodemon app.js`
+    </p>
+    <p>
+      3. Go to your app.js file and change the text in the
+      <code>&lth1&gt</code> tag to `Hello Universe` and notice that the terminal
+      will output the following:
+    </p>
+    <img
+      src="../../assets/images/screenshots/Nodemon1.png"
+      alt="Screenshot of terminal restarting with nodemon"
+    />
+    <p>
+      4. We can create a `nodemon.json` which controls which filestypes, if
+      updated, will initialize a restart of the server. The image below shows
+      what filetypes nodemon is looking for changes in:
+    </p>
+    <img
+      src="../../assets/images/screenshots/Nodemon2.png"
+      alt="Screenshot of nodemon.json file"
+    />
+  </section>
+</main>
