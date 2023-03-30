@@ -9,7 +9,7 @@ const frontpageContent = templateEngine.readPage(
   "./public/pages/frontpage/frontpageContent.html"
 );
 const frontpage = templateEngine.renderPage(frontpageContent, {
-  tabTitle: "HowTo - Frontpage",
+  tabTitle: "Frontpage",
 });
 
 //Express
@@ -17,7 +17,7 @@ const expressContent = templateEngine.readPage(
   "./public/pages/express/expressContent.html"
 );
 const expressPage = templateEngine.renderPage(expressContent, {
-  tabTitle: "HowTo - Express",
+  tabTitle: "Express",
   scriptLink: `    <script src="../../expressPage.js "></script>`,
 });
 
@@ -26,7 +26,7 @@ const nodemonContent = templateEngine.readPage(
   "./public/pages/nodemon/nodemonContent.html"
 );
 const nodemonPage = templateEngine.renderPage(nodemonContent, {
-  tabTitle: "HowTo - Nodemon",
+  tabTitle: "Nodemon",
 });
 
 //Javascript
@@ -34,7 +34,7 @@ const javascriptContent = templateEngine.readPage(
   "./public/pages/javascript/javascriptContent.html"
 );
 const javascriptPage = templateEngine.renderPage(javascriptContent, {
-  tabTitle: "HowTo - Javascript",
+  tabTitle: "Javascript",
   scriptLink: `    <script src="../../javascriptPage.js" defer></script>`,
   cssLink: `    <link rel="stylesheet" href="../../assets/css/javascriptPage.css">`,
 });
@@ -44,7 +44,7 @@ const restAPIContent = templateEngine.readPage(
   "./public/pages/restAPI/restAPIContent.html"
 );
 const restAPIPage = templateEngine.renderPage(restAPIContent, {
-  tabTitle: "HowTo - Rest API",
+  tabTitle: "Rest API",
   scriptLink: `    <script src="../../restAPIPage.js "></script>`,
 });
 
@@ -53,7 +53,7 @@ const nodejsContent = templateEngine.readPage(
   "./public/pages/nodejs/nodejsContent.html"
 );
 const nodejsPage = templateEngine.renderPage(nodejsContent, {
-  tabTitle: "HowTo - Node.js",
+  tabTitle: "Node.js",
   scriptLink: `<script src="../../nodejsPage.js"></script>`,
 });
 
